@@ -127,7 +127,8 @@ function FiltersBar({ genres }) {
       </div>
 
       <div className='home-link'>
-        <a href="http://localhost:3000/" className='home-link-text'>Home</a>
+         {/* <a href="http://localhost:3000/" className='home-link-text'>Home</a> */} 
+        <a href="https://music-recommendation-app-4c0527e169da.herokuapp.com/index.html" className='home-link-text'>Home</a>
       </div>
       
       <div className='clear-data-button-container'>
