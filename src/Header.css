@@ -1,0 +1,43 @@
+/* Header.css (or any other appropriate file name for your CSS) */
+
+/* Header styles */
+.header {
+    background-color: #fff; /* Change the background color as needed */
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a shadow if desired */
+  }
+  
+  /* Logo styles */
+  .logo img {
+    max-width: 100%; /* Ensure the logo image fits within its container */
+  }
+  
+  /* Menu styles */
+  .menu-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .menu-area-main {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-area-main li {
+    display: inline-block;
+    margin-left: 20px; /* Adjust the spacing between menu items */
+  }
+  
+  .menu-area-main li a {
+    text-decoration: none;
+    color: #333; /* Change the text color */
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .menu-area-main li a:hover {
+    color: #FF5733; /* Change the hover color */
+  }
+  

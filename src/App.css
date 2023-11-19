@@ -1,0 +1,551 @@
+:root {
+  --spotify-green: rgb(30, 215, 96);
+  --spotify-black-solid: rgb(25, 20, 20);
+  --spotify-grey-solid: rgb(194, 193, 193);
+  --spotify-sand-solid: rgb(236, 235, 232);
+  --spotify-white-solid: rgb(255, 255, 255);
+  --border-style: 1px solid rgba(48, 50, 59, 0.4);
+}
+
+/* :root {
+  --spotify-green: rgb(30, 215, 96);
+  --spotify-black-solid: rgb(25, 20, 20);
+  --spotify-grey-solid: rgb(130, 130, 130);
+  --spotify-sand-solid: rgb(236, 235, 232);
+  --spotify-white-solid: rgb(255, 255, 255);
+  --border-style: 1px solid rgba(48, 50, 59, 0.4);
+} */
+
+html * {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.1rem;
+}
+
+body {
+  background-color: var(--spotify-black-solid);
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  aspect-ratio: 1 / 1;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+
+button {
+  background-color: inherit;
+  border-style: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+button img{
+  vertical-align: middle;
+  height: 100%;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.site-content {
+  margin: 70px 0;
+  overflow: hidden;
+}
+
+a, a:where(:after, :before) {
+  color: var(--spotify-black-solid);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--spotify-green);
+}
+
+input[type="text"] {
+  background-color: var(--spotify-sand-solid);
+  border: none;
+}
+
+input[type="text"]:focus {
+  outline: 0;
+}
+
+
+/* filters bar at the top */
+.filters-bar, footer {
+  background-color: var(--spotify-grey-solid);
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+}
+
+.filters-bar {
+  top: 0;
+  border-bottom: var(--border-style);
+}
+
+.picked-music-tab-container, .picked-music-tab,
+.clear-data-button-container, .clear-data-button,
+.change-page-button-container, .change-page-button,
+.filter-button-container, .filter-button, .close-slide-in {
+  height: 100%;
+}
+
+.picked-music-tab-container { /* connects to 'added message' section */
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+.picked-music-tab img {
+  height: calc(100% - 10px);
+}
+
+.filters-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.filters-list {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.filter {
+  display: inline-block;
+  height: 100%;
+  border-left: var(--border-style);
+}
+
+.filter:last-child{
+  border-right: var(--border-style);
+}
+
+.filter-button {
+  padding-inline: 15px;
+}
+
+.filter-options {
+  padding: 20px 0;
+  position: fixed;
+  top: 69px; /* 1px lower because :hover doesn't work on border */
+  left: 0px;
+  background-color: var(--spotify-grey-solid);
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+:where(.fluid-row-content, .filter-options) ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.input-year {
+  margin: 5px;
+  width: 50px;
+}
+
+.filter-options, .fluid-row-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in, visibility 0.3s ease-in;
+  will-change: opacity, visibility;
+}
+
+.filter-button-container:hover .filter-options,
+.add-genres-container:hover .fluid-row-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.genres-search-bar {
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  width: 150px;
+}
+
+/* added message */
+.notification {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--spotify-sand-solid);
+  border: 1px solid var(--spotify-black-solid);
+  border-radius: 6px;
+  padding: 8px 10px;
+  transition: opacity 1s, visibility 1s;
+  will-change: opacity, visibility;
+}
+
+.notification::after {
+  content: "";
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  top: -20px;
+  left: 10px;
+  margin-left: -5px;
+  margin-left: -5px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent var(--spotify-sand-solid);
+  transition: opacity 1s, visibility 1s;
+  will-change: opacity, visibility;
+}
+
+.down {
+  bottom: -60%;
+  right: -40%;
+}
+
+.down::after {
+  top: -20px;
+  left: 10px;
+  border-color: transparent transparent var(--spotify-sand-solid);
+}
+
+.left {
+  top: -4px;
+  right: -22px;
+}
+
+.left::after {
+  top: 10px;
+  left: -15px;
+  border-color: transparent var(--spotify-sand-solid) transparent transparent;
+}
+
+.shown-notification, .shown-notification::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* get token and search components */
+.user-contribution {
+  padding: 5px;
+  width: calc(100% - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.default-button-container {
+  background-color: var(--spotify-green);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 7px 10px;
+}
+
+.search-form-container {
+  padding: 5px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input, .submit-button {
+  margin-inline: 5px;
+  border-radius: 5px;
+}
+
+.search-input {
+  padding-inline: 10px;
+  width: 180px;
+}
+
+.submit-button {
+  background-color: var(--spotify-green);
+  padding: 5px 10px;
+}
+
+
+/* search results */
+.search-results-container {
+  padding: 10px;
+}
+
+.search-results-grid, .picked-music-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.search-result {
+  position: relative;
+  display: flex;
+  height: 150px;
+  background-color: var(--spotify-grey-solid);
+}
+
+.result-image {
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-info-container {
+  padding: 5px 10px;
+}
+
+.result-info-container > * {
+  display: block;
+  text-align: left;
+  padding: 2px 0;
+}
+
+.name {
+  border-bottom: var(--border-style);
+}
+
+.result-button-container {
+  background-color: var(--spotify-sand-solid);
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+}
+
+.result-button {
+  height: 100%;
+}
+
+
+/* footer */
+footer {
+  height: 50px;
+  bottom: 0;
+  border-top: var(--border-style);
+}
+
+.credits-container, .credits-slide {
+  height: 100%;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+@keyframes slideShow {
+  0%, 40% {
+    transform: translateY(0);
+  }
+
+  60%, 100% {
+    transform: translateY(-100%);
+  }
+}
+
+
+.credits-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 10s infinite alternate slideShow;
+}
+
+.credits-slide img {
+  height: 50%;
+  aspect-ratio: 2362 / 709;
+  padding-left: 10px;
+}
+
+
+/* slide in */
+.slide-in {
+  background-color: var(--spotify-black-solid);
+  position: fixed;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateX(-100%);
+  transition: 1s;
+  z-index: 4;
+  overflow-y: scroll;
+  will-change: transform;
+}
+
+.shown {
+  transform: translateX(0);
+}
+
+.slide-in-header {
+  background-color: var(--spotify-grey-solid);
+}
+
+.close-slide-in-container {
+  aspect-ratio: 1/1;
+  height: 70px;
+  float: left;
+}
+
+.close-slide-in img {
+  height: calc(100% - 20px);
+}
+
+.note-container {
+  padding: 10px 10px 10px 0;
+  min-height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.user-contribution {
+  padding-top: 20px;
+}
+
+.fluid-row {
+  position: relative;
+  height: 0px;
+}
+
+.fluid-row-content {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--spotify-grey-solid);
+  max-height: 370px;
+  overflow-y: auto;
+  border: var(--border-style);
+  z-index: 1;
+}
+
+.fluid-row-content .genres-search-bar {
+  width: 100px;
+  margin: 10px 10px 0;
+}
+
+.picked-music-container {
+  padding: 20px;
+}
+
+
+/* placeholder */
+.placeholder {
+  background-color: var(--spotify-grey-solid);
+  padding-inline: 30px;
+}
+
+.placeholder img {
+  width: min(256px, calc(100vw - 90px)); /* make sure that design doesn't break on devices where width < 256 + 90 */
+}
+
+.placeholder span {
+  display: block;
+  margin: 10px 0;
+}
+
+
+/* tablet design */
+@media (min-width: 1100px) {
+  .filters-bar, footer {
+    width: 1100px;
+    left: 60%;
+    transform: translateX(-50%);
+  }
+
+  .site-content {
+    width: 1000px;
+    left: 50%;
+    transform: translateX(+10%);
+  }
+
+  .filter-options {
+    width: 272px;
+    border: var(--border-style);
+    left: 50%;
+    transform: translateX(-80%);
+  }
+
+  .search-results-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .placeholder {
+    grid-column: span 1;
+    width: 600px;
+    left: 50%;
+    transform: translateX(+20%);
+  }
+
+  .slide-in {
+    width: 400px;
+  }
+}
+
+
+/* PC design */
+/* @media (min-width: 1070px) {
+  .filters-bar, footer, .site-content {
+    transition: 1.5s;
+    will-change: transform;
+  }
+
+  .slide-in {
+    border-left: 2px solid var(--spotify-grey-solid);
+  }
+
+  .shown {
+    transform: translateX(calc(50vw - 537px)); 
+    transition: 1.5s;
+  }
+
+  .App:has(.shown) > :where(.filters-bar, footer) {
+    transform: translateX(calc(185px - 50%));
+  }
+
+  .App:has(.shown) > .site-content {
+    transform: translateX(185px);
+  }
+
+  .App:has(.shown) > .filters-bar .picked-music-tab > * {
+    display: none;
+  }
+} */
+
+/* Add this CSS to style the home link */
+/* Add this CSS to style the home link */
+.home-link {
+  margin-right: 20px; /* Adjust margin as needed */
+  display: flex;
+  align-items: center;
+}
+
+/* Modify the Home link text */
+.home-link-text {
+  text-decoration: none;
+  color: var(--spotify-black-solid); /* Change color as needed */
+  font-weight: bold;
+  font-size: 18px; /* Increase font size */
+  display: flex;
+  align-items: center;
+  margin-right: 100px; /* Move text a bit to the right */
+}
+
+.home-link-text:hover {
+  text-decoration: underline; /* Underline on hover */
+  color: var(--spotify-green); /* Change color on hover as needed */
+}
+
+
+.home-link img {
+  height: 24px; /* Adjust image height as needed */
+  margin-right: 5px; /* Adjust margin between image and text */
+}
