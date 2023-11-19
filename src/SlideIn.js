@@ -127,12 +127,12 @@ function SlideIn({ token, maxPerPage, genres, renderPicked, setAlbumsData, setMu
       </div>
 
       {/* Display alert if showAlert state is true */}
-      // {showAlert && (
-      //   <div className='alert'>
-      //     <span>Playlist created successfully in Spotify!</span>
-      //     <button onClick={() => setShowAlert(false)}>Close</button>
-      //   </div>
-      // )}
+            {/* {showAlert && (
+        <div className='alert'>
+          <span>Playlist created successfully in Spotify!</span>
+          <button onClick={() => setShowAlert(false)}>Close</button>
+        </div>
+      )} */}
     </div>
   );
 }
