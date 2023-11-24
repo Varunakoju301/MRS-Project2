@@ -107,17 +107,18 @@ function SlideIn({ token, maxPerPage, genres, renderPicked, setAlbumsData, setMu
           <button onClick={resetProgress}>Reset progress</button>
         </div>
 
-        <div className='default-button-container'>
+        {/* <div className='default-button-container'>
           <input
             type="text"
             placeholder="Playlist Name"
             value={playlistName}
             onChange={(e) => setPlaylistName(e.target.value)}
           />
-          <button onClick={handleSavePlaylist}>Save Playlist in SPOTIFY</button>
+          <button onClick={handleSavePlaylist}>Save Playlist in SPOTIFY</button> */}
           {/* Display success message if saveSuccess state is true */}
-          {saveSuccess && <p>Playlist created successfully in Spotify!</p>}
-        </div>
+          {/* {saveSuccess && <p>Playlist created successfully in Spotify!</p>} */}
+          {/* {saveSuccess && alert("Playlist created successfully!")}
+        </div> */}
 
       </div>
       <div className='picked-music-container'>
@@ -127,12 +128,12 @@ function SlideIn({ token, maxPerPage, genres, renderPicked, setAlbumsData, setMu
       </div>
 
       {/* Display alert if showAlert state is true */}
-      {showAlert && (
+      {/* {showAlert && (
         <div className='alert'>
           <span>Playlist created successfully in Spotify!</span>
           <button onClick={() => setShowAlert(false)}>Close</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

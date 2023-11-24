@@ -6,7 +6,7 @@ function errorHandling(response) {
   } else if (response.status === 401) {
     localStorage.removeItem("token");
     //window.alert("Please get a new token");
-    window.alert("Please generate a token to access spotify");
+    // window.alert("Please generate a token to access spotify");
 
   } else if (response.status === 429) {
     window.alert("This App is currently overloaded");

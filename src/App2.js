@@ -18,9 +18,9 @@ function Placeholder() {
 
 
 function App() {
-  //const CLIENT_ID = "eae286ae2c30452f876d62116733da2a"; 
-  const CLIENT_ID = "0c2f2f206cfa45bfba979b5015e57d6e";
-  const REDIRECT_URI = "http://localhost:3001/"; //Dev
+  // const CLIENT_ID = "0c2f2f206cfa45bfba979b5015e57d6e";
+  // const REDIRECT_URI = "http://localhost:3001/"; //Dev
+  const REDIRECT_URI = "https://music-recommendation-app2-958a1ed3e5fc.herokuapp.com/"; //PROD
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPES = "playlist-modify-private playlist-modify-public"; // Add the necessary scopes here
@@ -59,9 +59,9 @@ function App() {
     setToken(tokenVariable);
   }, [])
 
-
   useEffect(() => {
     const fetchGenres = async () => {
+      console.log("token ->",token);
       if (token) {
         let response = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
           headers: {
@@ -81,6 +81,54 @@ function App() {
       .catch(console.error);
   }, [token])
 
+  //24-11 remove playlist changes starts
+  useEffect(() => {
+    async function fetchToken() {
+      const token = await getAccessToken();
+      if (token) {
+        setToken(token);
+      } else {
+        // Handle the case where token retrieval fails
+        // You can set an error state or take appropriate action
+      }
+    }
+  
+    fetchToken().catch(console.error);
+  }, []);
+
+// Function to get access token
+async function getAccessToken() {
+  const clientId = '0c2f2f206cfa45bfba979b5015e57d6e';
+  const clientSecret = '42f1a392dbbb4cfda9ec6d9fbb4f0dd5';
+  const base64EncodedCredentials = btoa(`${clientId}:${clientSecret}`);
+  const tokenEndpoint = 'https://accounts.spotify.com/api/token';
+
+  // Request body
+  const requestBody = new URLSearchParams();
+  requestBody.append('grant_type', 'client_credentials');
+
+  try {
+    const response = await fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${base64EncodedCredentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: requestBody
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.access_token;
+    } else {
+      throw new Error('Failed to fetch access token');
+    }
+  } catch (error) {
+    console.error('Error getting access token:', error);
+    return null;
+  }
+}
+  //24-11 remove playlist changes ends
 
   function getUrlFromClient(e) {
     e.preventDefault();
@@ -139,6 +187,9 @@ function App() {
 
 
   async function fetchData(url, notify = false) {
+
+    const token = await getAccessToken(); //24-11 remove playlist changes
+
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -324,9 +375,10 @@ function App() {
       />
       <div className='site-content'>
         <div className='user-contribution'>
-          <div className='default-button-container'>
+          {/* <div className='default-button-container'>
+          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(SCOPES)}`}>Get token</a>
             <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(SCOPES)}`}>Get token</a>
-          </div>
+          </div> */}
           <div className='default-button-container'>
             <button onClick={resetFilters}>Reset filters</button>
           </div>

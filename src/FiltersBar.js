@@ -79,24 +79,21 @@ function GenresList(genres) {
     }
   }
 
-
+  // 24-11 remove playlist changes starts
   return (
     <>
       <input className='genres-search-bar' onChange={searchGenres} type="text" />
       <ul>
-        {genres.genres.length ? genres.genres.map(genre => <FilterOptionCheckbox name={genre} key={genre} />) : <div>Get token to load genres</div>}
+        {/* {genres.genres.length ? genres.genres.map(genre => <FilterOptionCheckbox name={genre} key={genre} />) : <div>Get token to load genres</div>} */}
+        {genres.genres.map(genre => ( <FilterOptionCheckbox name={genre} key={genre} />))}
       </ul>
     </>
   );
+
+  //24-11 remove playlist changes ends
 }
 
 function FiltersBar({ genres }) {
-
-  // const navigate = useNavigate();
-  // const handleGoBack = () => {
-  //   navigate(-1); // Go back one step in history
-  // };
-
 
   return (
     <div className='filters-bar'>
@@ -127,7 +124,10 @@ function FiltersBar({ genres }) {
       </div>
 
       <div className='home-link'>
-        <a href="http://localhost:3000/" className='home-link-text'>Home</a>
+        {/* Dev */}
+        {/* <a href="http://localhost:3000/" className='home-link-text'>Home</a>  */} 
+        <a href="https://music-recommendation-app-4c0527e169da.herokuapp.com/index.html" className='home-link-text'>Home</a>  {/* PROD */}
+        
       </div>
       
       <div className='clear-data-button-container'>
