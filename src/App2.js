@@ -19,7 +19,7 @@ function Placeholder() {
 
 function App() {
   // const CLIENT_ID = "0c2f2f206cfa45bfba979b5015e57d6e";
-  // const REDIRECT_URI = "http://localhost:3001/"; //Dev
+  // // const REDIRECT_URI = "http://localhost:3001/"; //Dev
   const REDIRECT_URI = "https://music-recommendation-app2-958a1ed3e5fc.herokuapp.com/"; //PROD
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
